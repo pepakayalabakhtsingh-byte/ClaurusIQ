@@ -4,11 +4,19 @@ const logger = require('./logger');
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(config.db.uri);
+    const conn = await mongoose.connect(config.db.uri, {
+      retryWrites: true,
+      w: 'majority',
+      serverSelectionTimeoutMS: 5000,
+      connectTimeoutMS: 10000,
+    });
     logger.info(`✅ MongoDB Connected: ${conn.connection.host}`);
+    return conn;
   } catch (error) {
     logger.error(`❌ MongoDB Connection Error: ${error.message}`);
-    process.exit(1);
+    logger.warn('⚠️  Running in offline mode - MongoDB features will be limited');
+    // Don't exit - allow server to run without MongoDB
+    return null;
   }
 };
 
