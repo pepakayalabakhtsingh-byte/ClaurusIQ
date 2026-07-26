@@ -66,8 +66,8 @@ async function processDocumentAsync(docSession, file) {
 
     await docSession.save();
     
-    // Optionally delete file after extraction to save space
-    // fs.unlinkSync(file.path);
+    // Clean up file after extraction to save space
+    fs.unlinkSync(file.path);
   } catch (error) {
     docSession.status = 'failed';
     docSession.error = error.message;

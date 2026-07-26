@@ -1,4 +1,4 @@
-import api from './api';
+import api, { API_BASE_URL } from './api';
 
 export const workflowService = {
   /**
@@ -44,7 +44,7 @@ export const workflowService = {
    * @param {function} onError callback for connection errors
    */
   subscribeToWorkflow: (id, onMessage, onError) => {
-    const eventSource = new EventSource(`/api/v1/workflow/${id}/stream`, {
+    const eventSource = new EventSource(`${API_BASE_URL}/workflow/${id}/stream`, {
       withCredentials: true
     });
 

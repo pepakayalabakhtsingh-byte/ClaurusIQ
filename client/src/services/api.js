@@ -17,8 +17,10 @@ const getAPIBaseURL = () => {
   return 'https://claurusiq.onrender.com/api/v1';
 };
 
+export const API_BASE_URL = getAPIBaseURL();
+
 const api = axios.create({
-  baseURL: getAPIBaseURL(),
+  baseURL: API_BASE_URL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',

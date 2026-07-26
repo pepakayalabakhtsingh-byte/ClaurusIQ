@@ -20,7 +20,7 @@ const sendTokenResponse = (user, statusCode, res) => {
     ),
     httpOnly: true,
     secure: config.env === 'production',
-    sameSite: 'lax',
+    sameSite: config.env === 'production' ? 'none' : 'lax',
   };
 
   res
