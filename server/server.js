@@ -33,7 +33,7 @@ app.use('/api/', limiter);
 const allowedOrigins = [
   'http://localhost:5173', // Local development
   'http://localhost:3000', // Alternative local
-  'https://claurusiq.vercel.app', // Vercel frontend
+  'https://claurus-iq.vercel.app', // Vercel frontend
   process.env.CLIENT_URL, // Environment variable
 ];
 
