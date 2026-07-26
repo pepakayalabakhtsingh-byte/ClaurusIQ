@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { authService } from '../services/authService';
+import toast from 'react-hot-toast';
 
 const AuthContext = createContext();
 
@@ -20,6 +21,7 @@ export const AuthProvider = ({ children }) => {
         setUser(data.user);
       }
     } catch (err) {
+      console.error('Auth check failed:', err);
       setUser(null);
     } finally {
       setLoading(false);
@@ -32,10 +34,16 @@ export const AuthProvider = ({ children }) => {
       const data = await authService.login(credentials);
       if (data.success) {
         setUser(data.user);
+        toast.success('Login successful!');
         return { success: true };
+      } else {
+        const errorMsg = data.error || 'Login failed';
+        setError(errorMsg);
+        return { success: false, error: errorMsg };
       }
     } catch (err) {
-      const message = err.message || 'Login failed';
+      const message = err.message || 'Login failed - Unable to connect to server';
+      console.error('Login error:', err);
       setError(message);
       return { success: false, error: message };
     }
@@ -47,10 +55,16 @@ export const AuthProvider = ({ children }) => {
       const data = await authService.register(userData);
       if (data.success) {
         setUser(data.user);
+        toast.success('Registration successful!');
         return { success: true };
+      } else {
+        const errorMsg = data.error || 'Registration failed';
+        setError(errorMsg);
+        return { success: false, error: errorMsg };
       }
     } catch (err) {
-      const message = err.message || 'Registration failed';
+      const message = err.message || 'Registration failed - Unable to connect to server';
+      console.error('Register error:', err);
       setError(message);
       return { success: false, error: message };
     }
@@ -61,8 +75,10 @@ export const AuthProvider = ({ children }) => {
       await authService.logout();
     } catch (err) {
       // Even if the API call fails, clear local state
+      console.error('Logout error:', err);
     } finally {
       setUser(null);
+      toast.success('Logged out successfully');
     }
   }, []);
 
