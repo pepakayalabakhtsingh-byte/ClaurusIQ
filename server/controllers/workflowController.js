@@ -5,15 +5,25 @@ const Logger = require('../logs/Logger');
 
 exports.startWorkflow = async (req, res) => {
   try {
-    const { query } = req.body;
-    if (!query) {
+    const { query } = req.body || {};
+    if (typeof query !== 'string') {
       return res.status(400).json({ success: false, message: 'Query is required' });
     }
-    if (query.length > 500) {
+    const normalizedQuery = query.trim();
+    if (!normalizedQuery) {
+      return res.status(400).json({ success: false, message: 'Query is required' });
+    }
+    if (normalizedQuery.length > 500) {
       return res.status(400).json({ success: false, message: 'Query must be less than 500 characters' });
     }
 
-    const workflow = await WorkflowEngine.startWorkflow(req.user.id, req.sessionID || 'session-default', query);
+    Logger.info('workflowController', 'Starting workflow request received', {
+      userId: req.user?.id,
+      hasSession: Boolean(req.sessionID),
+      queryLength: normalizedQuery.length
+    });
+
+    const workflow = await WorkflowEngine.startWorkflow(req.user.id, req.sessionID || 'session-default', normalizedQuery);
     
     res.status(201).json({
       success: true,
@@ -22,7 +32,7 @@ exports.startWorkflow = async (req, res) => {
     });
   } catch (error) {
     Logger.error('workflowController', 'Error starting workflow', error);
-    res.status(500).json({ success: false, message: 'Failed to start workflow' });
+    res.status(500).json({ success: false, message: 'Failed to start workflow', error: error.message });
   }
 };
 

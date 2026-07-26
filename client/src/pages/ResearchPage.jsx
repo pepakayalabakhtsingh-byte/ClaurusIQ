@@ -34,7 +34,7 @@ const ResearchPage = () => {
         subscribeToWorkflow(result.workflowId);
       }
     } catch (err) {
-      toast.error('Failed to start research workflow');
+      toast.error(err.message || 'Failed to start research workflow');
       setIsStarting(false);
     }
   };

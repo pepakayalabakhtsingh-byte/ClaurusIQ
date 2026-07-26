@@ -9,7 +9,7 @@ exports.getReliabilitySession = async (req, res, next) => {
       return next(new AppError('Reliability session not found', 404));
     }
 
-    if (session.userId.toString() !== req.user.id && req.user.role !== 'admin') {
+    if (session.ownerId.toString() !== req.user.id && req.user.role !== 'admin') {
       return next(new AppError('Not authorized to access this session', 403));
     }
 

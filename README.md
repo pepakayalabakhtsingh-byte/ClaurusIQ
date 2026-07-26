@@ -47,9 +47,15 @@ npm run dev
 Create `server/.env`:
 ```env
 PORT=5000
-MONGODB_URI=your_mongodb_uri
+MONGO_URI=your_mongodb_uri
 JWT_SECRET=your_jwt_secret
 GEMINI_API_KEY=your_gemini_key
+CLIENT_URL=http://localhost:5173
+```
+
+Create `client/.env` for production deployments:
+```env
+VITE_API_BASE_URL=https://<your-api-domain>/api/v1
 ```
 
 ## API Documentation

@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const AppError = require('../utils/AppError');
-const { sendTokenResponse } = require('../services/tokenService');
+const { sendTokenResponse, getCookieOptions } = require('../services/tokenService');
 
 // @desc    Register user
 // @route   POST /api/auth/register
@@ -73,9 +73,10 @@ const login = async (req, res, next) => {
 // @access  Private
 const logout = async (req, res, next) => {
   try {
+    const cookieOptions = getCookieOptions();
     res.cookie('token', 'none', {
+      ...cookieOptions,
       expires: new Date(Date.now() + 5 * 1000),
-      httpOnly: true,
     });
 
     res.status(200).json({
