@@ -34,6 +34,7 @@ const allowedOrigins = [
   'http://localhost:5173', // Local development
   'http://localhost:3000', // Alternative local
   'https://claurus-iq.vercel.app', // Vercel frontend
+  'https://claurusiq.onrender.com', // Render backend (self)
   process.env.CLIENT_URL, // Environment variable
 ];
 
