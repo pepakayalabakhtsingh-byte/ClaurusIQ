@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -90,6 +91,14 @@ app.use('/api/*', (req, res) => {
     success: false,
     error: 'API route not found',
   });
+});
+
+// Serve static files from the client build
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+// SPA fallback - serve index.html for all non-API routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 // Error handler
