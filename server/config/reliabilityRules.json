@@ -1,0 +1,19 @@
+{
+  "weights": {
+    "consensus": 0.40,
+    "diversity": 0.25,
+    "evidenceQuality": 0.15,
+    "citationQuality": 0.10,
+    "objectivity": 0.10
+  },
+  "thresholds": {
+    "excellent": 85,
+    "veryHigh": 70,
+    "high": 55,
+    "moderate": 40,
+    "low": 25,
+    "highDiversityPublishers": 3,
+    "strongConsensusPercentage": 90,
+    "moderateConsensusPercentage": 70
+  }
+}

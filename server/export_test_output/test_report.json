@@ -1,0 +1,27 @@
+{
+  "title": "Executive Summary: Microplastics",
+  "query": "What are the effects of microplastics?",
+  "content": {
+    "executiveSummary": "Microplastics are a growing concern in marine ecosystems.",
+    "keyFindings": [
+      {
+        "finding": "Microplastics are everywhere.",
+        "implication": "Ecosystem damage."
+      }
+    ],
+    "comprehensiveAnalysis": "This is a long analysis of microplastics...",
+    "methodology": "Literature review."
+  },
+  "sources": [
+    {
+      "url": "https://example.com",
+      "title": "A Study on Plastics",
+      "credibilityScore": 90
+    }
+  ],
+  "metadata": {
+    "biasScore": 2.5,
+    "reliabilityScore": 88,
+    "timestamp": "2026-07-25T18:57:04.646Z"
+  }
+}
