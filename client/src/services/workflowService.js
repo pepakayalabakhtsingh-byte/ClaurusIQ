@@ -1,4 +1,4 @@
-import api from './api';
+import api, { buildAPIUrl, getAuthToken } from './api';
 
 export const workflowService = {
   /**
@@ -44,7 +44,13 @@ export const workflowService = {
    * @param {function} onError callback for connection errors
    */
   subscribeToWorkflow: (id, onMessage, onError) => {
-    const eventSource = new EventSource(`/api/v1/workflow/${id}/stream`, {
+    const token = getAuthToken();
+    const streamUrl = new URL(buildAPIUrl(`/workflow/${id}/stream`));
+    if (token) {
+      streamUrl.searchParams.set('token', token);
+    }
+
+    const eventSource = new EventSource(streamUrl.toString(), {
       withCredentials: true
     });
 
